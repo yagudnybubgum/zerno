@@ -1,0 +1,35 @@
+{
+  "lots": [
+    {
+      "name": "Эфиопия Сидамо",
+      "roaster": "Кофейная обжарка",
+      "country": "Эфиопия",
+      "region": "Сидамо",
+      "variety": "Heirloom",
+      "process": "Мытая обработка",
+      "roast_level": "Светлая",
+      "flavor_notes": "Цитрусовые, жасмин, ягодные ноты",
+      "image_url": "https://example.com/ethiopia-sidamo.jpg"
+    },
+    {
+      "name": "Колумбия Уила",
+      "roaster": "Кофейная обжарка",
+      "country": "Колумбия",
+      "region": "Уила",
+      "variety": "Катурра",
+      "process": "Натуральная обработка",
+      "roast_level": "Средняя",
+      "flavor_notes": "Шоколад, орехи, карамель",
+      "image_url": "https://example.com/colombia-huila.jpg"
+    },
+    {
+      "name": "Бразилия Серрадо",
+      "roaster": "Другой обжарщик",
+      "country": "Бразилия",
+      "region": "Серрадо",
+      "roast_level": "Темная",
+      "flavor_notes": "Горький шоколад, специи"
+    }
+  ]
+}
+
