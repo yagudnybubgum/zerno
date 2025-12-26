@@ -61,6 +61,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Trigger for reviews updated_at
+DROP TRIGGER IF EXISTS update_reviews_updated_at ON reviews;
 CREATE TRIGGER update_reviews_updated_at
   BEFORE UPDATE ON reviews
   FOR EACH ROW
@@ -72,19 +73,23 @@ ALTER TABLE lots ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies for profiles
+DROP POLICY IF EXISTS "Profiles are viewable by everyone" ON profiles;
 CREATE POLICY "Profiles are viewable by everyone"
   ON profiles FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "Users can insert their own profile" ON profiles;
 CREATE POLICY "Users can insert their own profile"
   ON profiles FOR INSERT
   WITH CHECK (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Users can update their own profile" ON profiles;
 CREATE POLICY "Users can update their own profile"
   ON profiles FOR UPDATE
   USING (auth.uid() = id);
 
 -- RLS Policies for lots
+DROP POLICY IF EXISTS "Lots are viewable by everyone" ON lots;
 CREATE POLICY "Lots are viewable by everyone"
   ON lots FOR SELECT
   USING (true);
@@ -94,18 +99,22 @@ CREATE POLICY "Lots are viewable by everyone"
 -- For MVP, we'll handle admin checks in the application layer
 
 -- RLS Policies for reviews
+DROP POLICY IF EXISTS "Reviews are viewable by everyone" ON reviews;
 CREATE POLICY "Reviews are viewable by everyone"
   ON reviews FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "Users can insert their own reviews" ON reviews;
 CREATE POLICY "Users can insert their own reviews"
   ON reviews FOR INSERT
   WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can update their own reviews" ON reviews;
 CREATE POLICY "Users can update their own reviews"
   ON reviews FOR UPDATE
   USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can delete their own reviews" ON reviews;
 CREATE POLICY "Users can delete their own reviews"
   ON reviews FOR DELETE
   USING (auth.uid() = user_id);
