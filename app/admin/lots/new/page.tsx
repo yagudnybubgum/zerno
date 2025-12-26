@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { CreateLotForm } from "@/components/CreateLotForm";
 
+export const dynamic = 'force-dynamic';
+
 async function checkAdminAccess() {
   const supabase = await createClient();
   const {

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { CatalogFilters } from "@/components/CatalogFilters";
 import { StarRating } from "@/components/StarRating";
 
+export const dynamic = 'force-dynamic';
+
 interface SearchParams {
   search?: string;
   country?: string;

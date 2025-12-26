@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ProfileForm } from "@/components/ProfileForm";
 
+export const dynamic = 'force-dynamic';
+
 async function getUserProfile(userId: string) {
   const supabase = await createClient();
   const { data } = await supabase
