@@ -14,8 +14,10 @@ interface SearchParams {
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const params = await searchParams;
+  
   let supabase;
   try {
     supabase = await createClient();
@@ -40,22 +42,22 @@ export default async function HomePage({
     .select("*")
     .order("avg_rating", { ascending: false, nullsFirst: false });
 
-  if (searchParams.search) {
-    const searchTerm = searchParams.search.toLowerCase();
+  if (params.search) {
+    const searchTerm = params.search.toLowerCase();
     query = query.or(
       `name.ilike.%${searchTerm}%,roaster.ilike.%${searchTerm}%`
     );
   }
 
-  if (searchParams.country) {
-    query = query.eq("country", searchParams.country);
+  if (params.country) {
+    query = query.eq("country", params.country);
   }
 
-  if (searchParams.roast_level) {
-    query = query.eq("roast_level", searchParams.roast_level);
+  if (params.roast_level) {
+    query = query.eq("roast_level", params.roast_level);
   }
 
-  if (searchParams.sort === "popularity") {
+  if (params.sort === "popularity") {
     query = query.order("reviews_count", { ascending: false });
   }
 
@@ -92,10 +94,10 @@ export default async function HomePage({
       <CatalogFilters
         countries={uniqueCountries}
         roastLevels={uniqueRoastLevels}
-        currentSearch={searchParams.search || ""}
-        currentCountry={searchParams.country || ""}
-        currentRoastLevel={searchParams.roast_level || ""}
-        currentSort={searchParams.sort || "rating"}
+        currentSearch={params.search || ""}
+        currentCountry={params.country || ""}
+        currentRoastLevel={params.roast_level || ""}
+        currentSort={params.sort || "rating"}
       />
 
       {lots && lots.length > 0 ? (
